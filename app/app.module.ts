@@ -5,12 +5,14 @@ import {HttpModule} from "@angular/http";
 import { AppComponent }  from './app.component';
 import {ProfileComponent} from "./components/profile.component";
 import {GithubService} from "./services/github.service";
+import {NavbarComponent} from "./components/navbar.component";
 
 @NgModule({
   imports:      [ BrowserModule,
                   HttpModule],
   declarations: [ AppComponent,
-                  ProfileComponent],
+                  ProfileComponent,
+                  NavbarComponent],
   providers:    [ GithubService ]
   bootstrap:    [ AppComponent ]
 })
