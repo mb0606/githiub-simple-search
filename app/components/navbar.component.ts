@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'my-navbar',
   template: `
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
+  <nav class="navbar navbar-default">
+    <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">Github Search</a>
       </div>
