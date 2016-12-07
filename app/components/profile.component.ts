@@ -4,6 +4,19 @@ import {GithubService} from "../services/github.service";
 @Component({
   selector: 'my-profile',
   template: `
+    <div class="row">
+      <div class="col-xs-12">
+        <form class="well">
+          <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter Github username"
+                 name="username"
+                 [(ngModel)]="username"
+                 (keyup)="searchUser()">
+        </form>
+      </div><!-- col 12 -->
+    </div><!-- row -->
+    
     <h1>Github Profile</h1>
     <div *ngIf="user">
       <div class="panel panel-default">
@@ -33,16 +46,42 @@ import {GithubService} from "../services/github.service";
         </div><!-- row -->
         </div>
       </div><!-- panel -->
-    </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>User Repos</h3>
+         </div><!-- heading -->
+          <div class="panel-body">
+            <div *ngFor="let repo of repos">
+              <div class="row">
+                <div class="col-sm-9">
+                    <h4><a href="{{repo.html_url}}" target="_blank">{{repo.name}}</a></h4>
+                    <p>{{repo.description}}</p>
+                </div><!-- sm-col-9 -->
+                <div class="col-sm-3">
+                   <span class="label label-default">{{repo.watchers}} Watchers</span>
+                   <span class="label label-primary">{{repo.forks}} Forks</span>
+                </div><!-- sm-col-3 -->
+              </div> <!-- row -->
+              <hr>
+            </div>
+          </div><!-- panel body -->  
+       </div><!-- panel -->
+    </div><!-- ngIF -->
 
 
 `,
 })
 export class ProfileComponent  {
-  user:any[];
+  user:any;
   repos:any[];
+  username:string;
 
   constructor( private _githubService: GithubService){
+    this.user = false;
+  }
+
+  searchUser(){
+    this._githubService.updateUser(this.username);
 
     this._githubService.getUser()
       .subscribe(
@@ -56,7 +95,6 @@ export class ProfileComponent  {
           this.repos = repos;
         }
       )
-
   }
 
 
